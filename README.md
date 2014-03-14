@@ -1,2 +1,1 @@
-ImageResizer.Plugins.EPiServerBlobReader
-========================================
+## ImageResizer.Plugins.EPiServerBlobReader
