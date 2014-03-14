@@ -1,0 +1,2 @@
+ImageResizer.Plugins.EPiServerBlobReader
+========================================
