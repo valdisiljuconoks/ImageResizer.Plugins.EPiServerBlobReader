@@ -56,12 +56,13 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
 
         protected virtual void PostAuthorizeRequestStarted(IHttpModule httpModule, HttpContext httpContext)
         {
-            var path = httpContext.Request.Url.AbsolutePath;
-            var split = this._isEditModeImageUrlRegex.Split(path);
-            if (split.Length == 3) // 3 because when a match occurs it does so at the start and end of the input
+            var path = HttpUtility.UrlDecode(httpContext.Request.Url.AbsolutePath);
+            if (path == null || !this._isEditModeImageUrlRegex.IsMatch(path))
             {
-                Config.Current.Pipeline.PreRewritePath = split[1];
+                return;
             }
+
+            Config.Current.Pipeline.PreRewritePath = this._isEditModeImageUrlRegex.Match(path).Groups[1].Value;
         }
 
         protected bool PathIsInScope(string virtualPath)
