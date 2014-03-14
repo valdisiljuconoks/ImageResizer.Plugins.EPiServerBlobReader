@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<configuration>
+  <configSections>
+    <section name="resizer" type="ImageResizer.ResizerSection" requirePermission="false"/>
+  </configSections>
+  <resizer>
+   <plugins>
+    <add name="EPiServerBlobReader" />
+   </plugins>
+  </resizer>
+</configuration>
