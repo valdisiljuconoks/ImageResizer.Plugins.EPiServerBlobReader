@@ -1,73 +1,102 @@
 ﻿using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Web;
+using EPiServer;
+using EPiServer.Core;
+using EPiServer.ServiceLocation;
+using EPiServer.Web;
+using EPiServer.Web.Routing;
+using EPiServer.Web.Routing.Segments;
 using ImageResizer.Configuration;
 
 namespace ImageResizer.Plugins.EPiServerBlobReader
 {
-    // Copyright: http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
+    /// <summary>
+    /// Copyright: https://raw.githubusercontent.com/Igelkottegrodan/ImageResizer.Plugins.EPiServerBlobPlugin/master/ImageResizer.Plugins.EPiServerBlobPlugin/EPiServerBlobPlugin.cs
+    /// </summary>
     public class EPiServerBlobReaderPlugin : IVirtualImageProvider, IPlugin
     {
-        //ToDo: get rid of these constants in favour of something that uses the Site Definition?
-        //ToDo: the file extension list here is fixed, ought it not to be driven by the registered extensions for ImageResizing.Net?
-        private readonly Regex _isAssetImageRegex =
-                new Regex(@".*/(?:globalassets|contentassets|siteassets)/.*\.(?:jpg|jpeg|gif|png)",
-                        RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline |
-                        RegexOptions.Compiled);
+        private readonly UrlResolver __urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 
-        private readonly Regex _isEditModeImageUrlRegex =
-                new Regex(@"(.*/(?:globalassets|contentassets|siteassets)/.*\.(?:jpg|jpeg|gif|png)),{2}\d+",
-                        RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline |
-                        RegexOptions.Compiled);
-
-        public IPlugin Install(Config c)
+        public IPlugin Install(Config config)
         {
-            c.Pipeline.PostAuthorizeRequestStart += PostAuthorizeRequestStarted;
-            c.Plugins.add_plugin(this);
+            config.Plugins.add_plugin(this);
+            config.Pipeline.PostAuthorizeRequestStart += OnPostAuthorizeRequestStart;
+
             return this;
         }
 
-        public bool Uninstall(Config c)
+        public bool Uninstall(Config config)
         {
-            c.Plugins.remove_plugin(this);
-            c.Pipeline.PostAuthorizeRequestStart -= PostAuthorizeRequestStarted;
+            config.Plugins.remove_plugin(this);
+            config.Pipeline.PostAuthorizeRequestStart -= OnPostAuthorizeRequestStart;
+
             return true;
         }
 
         public bool FileExists(string virtualPath, NameValueCollection queryString)
         {
-            if (!PathIsInScope(virtualPath))
-            {
-                return false;
-            }
-            var blob = new EPiServerBlobFile(virtualPath, queryString);
-            return blob.BlobExists;
+            var blobImage = GetBlobFile(virtualPath, queryString);
+
+            return (blobImage != null && blobImage.BlobExists);
         }
 
         public IVirtualFile GetFile(string virtualPath, NameValueCollection queryString)
         {
-            if (!PathIsInScope(virtualPath))
-            {
-                return null;
-            }
-            var blob = new EPiServerBlobFile(virtualPath, queryString);
-            return blob.Blob != null ? blob : null;
+            return GetBlobFile(virtualPath, queryString);
         }
 
-        protected virtual void PostAuthorizeRequestStarted(IHttpModule httpModule, HttpContext httpContext)
+        private EPiServerBlobFile GetBlobFile(string virtualPath, NameValueCollection queryString)
         {
-            var path = HttpUtility.UrlDecode(httpContext.Request.Url.AbsolutePath);
-            if (path == null || !this._isEditModeImageUrlRegex.IsMatch(path))
+            var blobFile = new EPiServerBlobFile(virtualPath, queryString);
+
+            return blobFile;
+        }
+
+        private void OnPostAuthorizeRequestStart(IHttpModule sender, HttpContext context)
+        {
+            var absolutePath = CleanEditModePath(context.Request.Url.AbsolutePath);
+            var resolvedContent = __urlResolver.Route(new UrlBuilder(absolutePath));
+
+            if (resolvedContent == null)
             {
                 return;
             }
 
-            Config.Current.Pipeline.PreRewritePath = this._isEditModeImageUrlRegex.Match(path).Groups[1].Value;
+            var isMediaContent = resolvedContent is MediaData;
+
+            if (!isMediaContent)
+            {
+                return;
+            }
+
+            Config.Current.Pipeline.SkipFileTypeCheck = true;
+
+            var previewOrEditMode = RequestSegmentContext.CurrentContextMode == ContextMode.Edit || RequestSegmentContext.CurrentContextMode == ContextMode.Preview;
+
+            // Disable cache if editing or previewing
+            if (!previewOrEditMode)
+            {
+                return;
+            }
+
+            Config.Current.Pipeline.PreRewritePath = absolutePath;
+            var modifiedQueryString = new NameValueCollection(Config.Current.Pipeline.ModifiedQueryString)
+            {
+                {
+                    "process", ProcessWhen.Always.ToString()
+                },
+                {
+                    "cache", ServerCacheMode.No.ToString()
+                }
+            };
+
+            Config.Current.Pipeline.ModifiedQueryString = modifiedQueryString;
         }
 
-        protected bool PathIsInScope(string virtualPath)
+        private string CleanEditModePath(string path)
         {
-            return this._isAssetImageRegex.IsMatch(virtualPath);
+            return Regex.Replace(path, @",.*$", string.Empty);
         }
     }
 }

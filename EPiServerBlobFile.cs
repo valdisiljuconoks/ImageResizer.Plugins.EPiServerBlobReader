@@ -12,18 +12,16 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
     // Copyright: http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
     public class EPiServerBlobFile : IVirtualFileWithModifiedDate
     {
-        protected readonly ContentRouteHelper ContentRouteHelper;
+        private readonly ContentRouteHelper _contentRouteHelper;
         private Blob _blob;
         private IContent _content;
 
         public EPiServerBlobFile(string virtualPath, NameValueCollection queryString)
-            : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<ContentRouteHelper>())
-        {
-        }
+            : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<ContentRouteHelper>()) { }
 
         public EPiServerBlobFile(string virtualPath, NameValueCollection queryString, ContentRouteHelper contentRouteHelper)
         {
-            this.ContentRouteHelper = contentRouteHelper;
+            _contentRouteHelper = contentRouteHelper;
             VirtualPath = virtualPath;
             QueryString = queryString;
         }
@@ -32,38 +30,34 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
 
         public Blob Blob
         {
-            get
-            {
-                return this._blob ?? (this._blob = GetBlob());
-            }
+            get { return _blob ?? (_blob = GetBlob()); }
         }
 
-        public IContent Content
+        private IContent Content
         {
             get
             {
-                if (this._content != null)
+                if (_content != null)
                 {
-                    return this._content;
+                    return _content;
                 }
-                this._content = this.ContentRouteHelper.Content;
-                if (!this._content.QueryDistinctAccess(AccessLevel.Read))
+
+                _content = _contentRouteHelper.Content;
+                if (!_content.QueryDistinctAccess(AccessLevel.Read))
                 {
-                    this._content = null;
+                    _content = null;
                 }
-                return this._content;
+
+                return _content;
             }
         }
 
         public bool BlobExists
         {
-            get
-            {
-                return Content != null;
-            }
+            get { return Content != null; }
         }
 
-        public string VirtualPath { get; private set; }
+        public string VirtualPath { get; }
 
         public DateTime ModifiedDateUTC
         {
@@ -86,7 +80,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
             return Blob != null ? Blob.OpenRead() : null;
         }
 
-        protected Blob GetBlob()
+        private Blob GetBlob()
         {
             if (Content == null)
             {
