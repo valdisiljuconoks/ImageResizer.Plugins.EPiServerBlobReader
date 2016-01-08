@@ -11,6 +11,6 @@
     <description>$description$</description>
     <releaseNotes>Initial release of the package.</releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>EPiServer CMS ImageResizer BlobReader</tags>
+    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader ImageResizing Resizer</tags>
   </metadata>
 </package>
