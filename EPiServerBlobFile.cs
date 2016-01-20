@@ -68,7 +68,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
                     var trackable = Content as IChangeTrackable;
                     if (trackable != null)
                     {
-                        return trackable.Changed.ToUniversalTime();
+                        return trackable.Saved.ToUniversalTime();
                     }
                 }
                 return DateTime.MinValue.ToUniversalTime();
