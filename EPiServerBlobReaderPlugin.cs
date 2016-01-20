@@ -70,8 +70,6 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
                 return;
             }
 
-            Config.Current.Pipeline.SkipFileTypeCheck = true;
-
             var previewOrEditMode = RequestSegmentContext.CurrentContextMode == ContextMode.Edit || RequestSegmentContext.CurrentContextMode == ContextMode.Preview;
 
             // Disable cache if editing or previewing
