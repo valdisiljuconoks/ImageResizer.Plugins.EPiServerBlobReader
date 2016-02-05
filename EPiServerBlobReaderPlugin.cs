@@ -55,6 +55,9 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
 
         private void OnPostAuthorizeRequestStart(IHttpModule sender, HttpContext context)
         {
+            if (context.Request.Url.ToString().Contains("Thumbnail?epieditmode"))
+                return;
+                
             var absolutePath = CleanEditModePath(context.Request.Url.AbsolutePath);
             var resolvedContent = __urlResolver.Route(new UrlBuilder(absolutePath));
 
