@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageResizer.Plugins.EPiServerBlobReader", "ImageResizer.Plugins.EPiServerBlobReader.csproj", "{D63A4907-40DA-40EB-A17D-1CC62704A02E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageResizer.Plugins.EPiServerBlobReader", "src\ImageResizer.Plugins.EPiServerBlobReader\ImageResizer.Plugins.EPiServerBlobReader.csproj", "{D63A4907-40DA-40EB-A17D-1CC62704A02E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C88BB859-879A-4A35-8A5F-7EF9BC93D5BD}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C88BB8
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{F4778037-B3EF-45BE-95C6-8652A2C836A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAlloy", "samples\SampleAlloy\SampleAlloy.csproj", "{142027ED-EFE7-426D-9AAD-9E049EC6E115}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,8 +26,15 @@ Global
 		{D63A4907-40DA-40EB-A17D-1CC62704A02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D63A4907-40DA-40EB-A17D-1CC62704A02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D63A4907-40DA-40EB-A17D-1CC62704A02E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{142027ED-EFE7-426D-9AAD-9E049EC6E115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{142027ED-EFE7-426D-9AAD-9E049EC6E115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{142027ED-EFE7-426D-9AAD-9E049EC6E115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{142027ED-EFE7-426D-9AAD-9E049EC6E115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{142027ED-EFE7-426D-9AAD-9E049EC6E115} = {F4778037-B3EF-45BE-95C6-8652A2C836A1}
 	EndGlobalSection
 EndGlobal
