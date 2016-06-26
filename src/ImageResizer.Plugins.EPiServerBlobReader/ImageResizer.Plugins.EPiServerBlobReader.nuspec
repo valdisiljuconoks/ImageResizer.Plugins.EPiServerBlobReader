@@ -5,7 +5,7 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <owners>$author$</owners>
+    <owners>Valdis Iljuconoks</owners>
     <projectUrl>https://github.com/valdisiljuconoks/ImageResizer.Plugins.EPiServerBlobReader</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
