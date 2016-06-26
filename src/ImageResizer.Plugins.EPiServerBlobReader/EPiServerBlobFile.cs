@@ -16,8 +16,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
         private Blob _blob;
         private IContent _content;
 
-        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString)
-            : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<ContentRouteHelper>()) { }
+        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString) : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<ContentRouteHelper>()) { }
 
         public EPiServerBlobFile(string virtualPath, NameValueCollection queryString, ContentRouteHelper contentRouteHelper)
         {
@@ -28,10 +27,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
 
         public NameValueCollection QueryString { get; private set; }
 
-        public Blob Blob
-        {
-            get { return _blob ?? (_blob = GetBlob()); }
-        }
+        public Blob Blob => _blob ?? (_blob = GetBlob());
 
         private IContent Content
         {
@@ -52,10 +48,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
             }
         }
 
-        public bool BlobExists
-        {
-            get { return Content != null; }
-        }
+        public bool BlobExists => Content != null;
 
         public string VirtualPath { get; }
 
@@ -63,35 +56,20 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
         {
             get
             {
-                if (Content != null)
-                {
-                    var trackable = Content as IChangeTrackable;
-                    if (trackable != null)
-                    {
-                        return trackable.Saved.ToUniversalTime();
-                    }
-                }
-                return DateTime.MinValue.ToUniversalTime();
+                var trackable = Content as IChangeTrackable;
+                return trackable?.Saved.ToUniversalTime() ?? DateTime.MinValue.ToUniversalTime();
             }
         }
 
         public Stream Open()
         {
-            return Blob != null ? Blob.OpenRead() : null;
+            return Blob?.OpenRead();
         }
 
         private Blob GetBlob()
         {
-            if (Content == null)
-            {
-                return null;
-            }
             var binaryStorable = Content as IBinaryStorable;
-            if (binaryStorable == null || binaryStorable.BinaryData == null)
-            {
-                return null;
-            }
-            return binaryStorable.BinaryData;
+            return binaryStorable?.BinaryData;
         }
     }
 }
