@@ -7,10 +7,11 @@
     <authors>$author$</authors>
     <owners>Valdis Iljuconoks</owners>
     <projectUrl>https://github.com/valdisiljuconoks/ImageResizer.Plugins.EPiServerBlobReader</projectUrl>
+    <licenseUrl>https://github.com/valdisiljuconoks/ImageResizer.Plugins.EPiServerBlobReader/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial release of the package.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader ImageResizing Resizer</tags>
+    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader Blob ImageResizing Resizing</tags>
   </metadata>
 </package>

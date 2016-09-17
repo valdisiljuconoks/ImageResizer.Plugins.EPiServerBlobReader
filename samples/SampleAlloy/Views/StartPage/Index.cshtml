@@ -1,4 +1,11 @@
+@using EPiServer.Shell
+@using EPiServer.Web.Routing
 @using SampleAlloy
+@using SampleAlloy.Business.Rendering
 @model PageViewModel<SampleAlloy.Models.Pages.StartPage>
 
-@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })
+@*@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })*@
+
+<div>
+    <img src="@Html.Resize(Model.CurrentPage.MainImage, 100)"/>
+</div>

@@ -153,10 +153,6 @@
       <HintPath>..\..\packages\ImageResizer.4.0.1\lib\net45\ImageResizer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ImageResizer.Plugins.EPiServerBlobReader, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImageResizer.Plugins.EPiServerBlobReader.4.0.2\lib\net45\ImageResizer.Plugins.EPiServerBlobReader.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -273,6 +269,7 @@
     <Compile Include="Business\PageViewContextFactory.cs" />
     <Compile Include="Business\Rendering\AlloyContentAreaRenderer.cs" />
     <Compile Include="Business\Rendering\ErrorHandlingContentRenderer.cs" />
+    <Compile Include="Business\Rendering\HtmlHelperExtensions.cs" />
     <Compile Include="Business\Rendering\IContainerPage.cs" />
     <Compile Include="Business\Rendering\ICustomCssInContentArea.cs" />
     <Compile Include="Business\Rendering\SiteViewEngine.cs" />
@@ -335,7 +332,12 @@
     <Compile Include="Models\ViewModels\VideoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ImageResizer.Plugins.EPiServerBlobReader\ImageResizer.Plugins.EPiServerBlobReader.csproj">
+      <Project>{d63a4907-40da-40eb-a17d-1cc62704a02e}</Project>
+      <Name>ImageResizer.Plugins.EPiServerBlobReader</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="ClientResources\Images\icons\layoutIcons24x24.png" />
     <Content Include="ClientResources\Scripts\Editors\StringList.js" />

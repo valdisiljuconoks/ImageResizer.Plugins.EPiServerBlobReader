@@ -3,6 +3,7 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
+using EPiServer.Web;
 using SampleAlloy.Models.Blocks;
 
 namespace SampleAlloy.Models.Pages
@@ -25,6 +26,9 @@ namespace SampleAlloy.Models.Pages
             Order = 320)]
         [CultureSpecific]
         public virtual ContentArea MainContentArea { get; set; }
+
+        [UIHint(UIHint.Image)]
+        public virtual ContentReference MainImage { get; set; }
 
         [Display(GroupName = Global.GroupNames.SiteSettings, Order = 300)]
         public virtual LinkItemCollection ProductPageLinks { get; set; }
