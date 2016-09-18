@@ -155,6 +155,7 @@
   <ItemGroup>
     <Compile Include="EPiServerBlobReaderPlugin.cs" />
     <Compile Include="EPiServerBlobFile.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
