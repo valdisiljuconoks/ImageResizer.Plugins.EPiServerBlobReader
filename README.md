@@ -14,7 +14,7 @@ Most convenient way to render image in markup would be use `HtmlHelper` extensio
 
 This will make sure that markup for visitors would be (assuming that image is `png`):
 
-```html
+```
 <image src="/.../image.png?w=100&h=100">
 ```
 
