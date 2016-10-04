@@ -15,15 +15,22 @@ namespace ImageResizer.Plugins.EPiServer
                 throw new ArgumentNullException(nameof(image));
 
             var url = UrlResolver.Current.GetUrl(image);
-            if(string.IsNullOrEmpty(url))
-                return new UrlBuilder("");
 
-            var builder = new UrlBuilder(url);
+            return helper.ResizeImage(url, width, height);
+        }
 
-            if(width.HasValue)
+        public static UrlBuilder ResizeImage(
+            this HtmlHelper helper, string imageUrl, int? width = null, int? height = null)
+        {
+            if (string.IsNullOrEmpty(imageUrl))
+                return new UrlBuilder(string.Empty);
+
+            var builder = new UrlBuilder(imageUrl);
+
+            if (width.HasValue)
                 builder.QueryCollection.Add("w", width.Value.ToString());
 
-            if(height.HasValue)
+            if (height.HasValue)
                 builder.QueryCollection.Add("h", height.Value.ToString());
 
             return builder;
