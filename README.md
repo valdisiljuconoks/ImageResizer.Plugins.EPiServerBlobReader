@@ -1,7 +1,13 @@
 ## ImageResizer.Plugins.EPiServerBlobReader
 
+
 Nothing much to describe here :)
 Just install NuGet package and it will register EPiServer Blob reader plugin for ImageResizer in order to serve and process images from EPiServer Media folders by ImageResizer.
+
+
+## EPiServer 10 Support
+
+Please use branch `epi10` for EPiServer v10.x support.
 
 ## Render Image in Markup
 Most convenient way to render image in markup would be use `HtmlHelper` extension method:
