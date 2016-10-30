@@ -9,16 +9,17 @@ using EPiServer.Web.Routing;
 
 namespace ImageResizer.Plugins.EPiServerBlobReader
 {
-    // Copyright: http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
+    // Original code (or at least as much as left from it):
+    // http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
     public class EPiServerBlobFile : IVirtualFileWithModifiedDate
     {
-        private readonly ContentRouteHelper _contentRouteHelper;
+        private readonly IContentRouteHelper _contentRouteHelper;
         private Blob _blob;
         private IContent _content;
 
-        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString) : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<ContentRouteHelper>()) { }
+        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString) : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<IContentRouteHelper>()) { }
 
-        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString, ContentRouteHelper contentRouteHelper)
+        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString, IContentRouteHelper contentRouteHelper)
         {
             _contentRouteHelper = contentRouteHelper;
             VirtualPath = virtualPath;
