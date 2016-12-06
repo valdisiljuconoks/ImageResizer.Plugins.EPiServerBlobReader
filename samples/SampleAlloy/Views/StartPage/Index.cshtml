@@ -1,13 +1,11 @@
-@using EPiServer.Shell
-@using EPiServer.Web.Routing
+@using ImageResizer
 @using ImageResizer.Plugins.EPiServer
-@using ImageResizer.Plugins.EPiServerBlobReader
-@using SampleAlloy
-@using SampleAlloy.Business.Rendering
 @model PageViewModel<SampleAlloy.Models.Pages.StartPage>
 
 @*@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })*@
 
 <div>
-    <img src="@Html.ResizeImage(Model.CurrentPage.MainImage, 100).Add("h", "150").Add("gradient", "true")" />
+    <img src="@Html.ResizeImage(Model.CurrentPage.MainImage, 100).Add("h", "150").Add("gradient", "true")"/>
+
+    <img src="@Html.ResizeImage(Model.CurrentPage.MainImage).Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)"/>
 </div>
