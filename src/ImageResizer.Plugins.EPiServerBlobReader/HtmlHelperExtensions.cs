@@ -26,10 +26,10 @@ namespace ImageResizer.Plugins.EPiServer
             var builder = new UrlBuilder(imageUrl);
 
             if(width.HasValue)
-                builder.Add("w", width.Value.ToString());
+                builder.Width(width.Value);
 
             if(height.HasValue)
-                builder.Add("h", height.Value.ToString());
+                builder.Height(height.Value);
 
             return builder;
         }
