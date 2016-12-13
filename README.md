@@ -35,3 +35,13 @@ And also for the edit mode it would be generated something like this:
 ```
 <img src="@Html.ResizeImage(Model.CurrentPage.MainImage, 100, 150).Add("gradient", "true").Add("bgcolor", "red)" />
 ```
+
+## Render Image Markup (Fluent)
+You can also use some basic fluent api support as well:
+
+```
+<img src="@Html.ResizeImage(CurrentPage.MainImage).Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)" />
+```
+
+
+Happy imaging!
