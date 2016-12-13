@@ -16,6 +16,7 @@
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="10.0.1" />
       <dependency id="ImageResizer" version="4.0.1" />
+      <dependency id="ImageResizer.WebConfig" version="4.0.1" />
     </dependencies>
   </metadata>
 </package>
