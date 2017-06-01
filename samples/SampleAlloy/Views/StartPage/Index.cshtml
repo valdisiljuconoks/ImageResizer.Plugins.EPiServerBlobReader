@@ -9,3 +9,15 @@
 
     <img src="@Html.ResizeImage(Model.CurrentPage.MainImage).Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)"/>
 </div>
+
+<div>
+    <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, "/noimage.jpg", 100).Add("h", "150").Add("gradient", "true")"/>
+
+    <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, "/noimage.jpg").Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)"/>
+</div>
+
+<div>
+    <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, string.Empty, 100).Add("h", "150").Add("gradient", "true")"/>
+
+    <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, string.Empty).Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)"/>
+</div>

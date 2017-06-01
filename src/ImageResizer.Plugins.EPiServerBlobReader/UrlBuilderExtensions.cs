@@ -11,7 +11,9 @@ namespace ImageResizer.Plugins.EPiServer
             if(target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            target.QueryCollection.Add(key, value);
+            if(!target.IsEmpty)
+                target.QueryCollection.Add(key, value);
+
             return target;
         }
 
@@ -20,7 +22,9 @@ namespace ImageResizer.Plugins.EPiServer
             if(target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            target.QueryCollection.Add(collection);
+            if (!target.IsEmpty)
+                target.QueryCollection.Add(collection);
+
             return target;
         }
 
@@ -29,7 +33,9 @@ namespace ImageResizer.Plugins.EPiServer
             if(target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            target.QueryCollection.Add("w", width.ToString());
+            if (!target.IsEmpty)
+                target.QueryCollection.Add("w", width.ToString());
+
             return target;
         }
 
@@ -38,7 +44,9 @@ namespace ImageResizer.Plugins.EPiServer
             if(target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            target.QueryCollection.Add("h", height.ToString());
+            if (!target.IsEmpty)
+                target.QueryCollection.Add("h", height.ToString());
+
             return target;
         }
 
@@ -47,7 +55,9 @@ namespace ImageResizer.Plugins.EPiServer
             if(target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            target.QueryCollection.Add("scale", AddScaleString(mode));
+            if (!target.IsEmpty)
+                target.QueryCollection.Add("scale", AddScaleString(mode));
+
             return target;
         }
 
@@ -56,25 +66,26 @@ namespace ImageResizer.Plugins.EPiServer
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            target.QueryCollection.Add("mode", mode.ToString().ToLower());
+            if (!target.IsEmpty)
+                target.QueryCollection.Add("mode", mode.ToString().ToLower());
+
             return target;
         }
 
         private static string AddScaleString(ScaleMode value)
         {
-            if(value == ScaleMode.Both)
-                return "both";
-
-            if(value == ScaleMode.DownscaleOnly)
-                return "down";
-
-            if(value == ScaleMode.UpscaleCanvas)
-                return "canvas";
-
-            if(value == ScaleMode.UpscaleOnly)
-                return "up";
-
-            throw new NotImplementedException("Unrecognized ScaleMode value: " + value);
+            switch (value) {
+                case ScaleMode.Both:
+                    return "both";
+                case ScaleMode.DownscaleOnly:
+                    return "down";
+                case ScaleMode.UpscaleCanvas:
+                    return "canvas";
+                case ScaleMode.UpscaleOnly:
+                    return "up";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(value), value, null);
+            }
         }
     }
 }

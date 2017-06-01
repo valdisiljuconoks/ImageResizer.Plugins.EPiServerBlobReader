@@ -5,14 +5,14 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <owners>Valdis Iljuconoks</owners>
+    <owners>$author$</owners>
     <projectUrl>https://github.com/valdisiljuconoks/ImageResizer.Plugins.EPiServerBlobReader</projectUrl>
     <licenseUrl>https://github.com/valdisiljuconoks/ImageResizer.Plugins.EPiServerBlobReader/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Version with EPiServer v10 support</releaseNotes>
-    <copyright>Copyright 2016</copyright>
-    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader Blob ImageResizing Resizing</tags>
+    <copyright>Copyright 2017 (c) Valdis Iljuconoks, Tech Fellow</copyright>
+    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader Blob ImageResizing Resizing ImageResizer.Net Imazen Imazen.Net</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="10.0.1" />
       <dependency id="ImageResizer" version="4.0.1" />

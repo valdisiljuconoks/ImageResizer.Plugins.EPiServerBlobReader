@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageResizer.Plugins.EPiServerBlobReader", "src\ImageResizer.Plugins.EPiServerBlobReader\ImageResizer.Plugins.EPiServerBlobReader.csproj", "{D63A4907-40DA-40EB-A17D-1CC62704A02E}"
 EndProject
@@ -15,6 +15,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{F4778037-B3EF-45BE-95C6-8652A2C836A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAlloy", "samples\SampleAlloy\SampleAlloy.csproj", "{142027ED-EFE7-426D-9AAD-9E049EC6E115}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{189982E3-BE19-4AB1-ACF7-4562194E57AC}"
+	ProjectSection(SolutionItems) = preProject
+		build-packages.ps1 = build-packages.ps1
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

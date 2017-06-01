@@ -15,15 +15,30 @@ namespace ImageResizer.Plugins.EPiServer
 
             var url = UrlResolver.Current.GetUrl(image);
 
-            return helper.ResizeImage(url, width, height);
+            return ConstructUrl(url, width, height);
+        }
+
+        public static UrlBuilder ResizeImageWithFallback(this HtmlHelper helper, ContentReference image, string imageFallback, int? width = null, int? height = null)
+        {
+            return ConstructUrl(image == null || image == ContentReference.EmptyReference ? imageFallback : UrlResolver.Current.GetUrl(image), width, height);
         }
 
         public static UrlBuilder ResizeImage(this HtmlHelper helper, string imageUrl, int? width = null, int? height = null)
         {
             if(string.IsNullOrEmpty(imageUrl))
-                return new UrlBuilder(string.Empty);
+                throw new ArgumentNullException(nameof(imageUrl));
 
-            var builder = new UrlBuilder(imageUrl);
+            return ConstructUrl(imageUrl, width, height);
+        }
+
+        public static UrlBuilder ResizeImageWithFallback(this HtmlHelper helper, string imageUrl, string imageFallback, int? width = null, int? height = null)
+        {
+            return ConstructUrl(string.IsNullOrEmpty(imageUrl) ? imageFallback : imageUrl, width, height);
+        }
+
+        private static UrlBuilder ConstructUrl(string url, int? width = null, int? height = null)
+        {
+            var builder = new UrlBuilder(url);
 
             if(width.HasValue)
                 builder.Width(width.Value);

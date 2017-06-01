@@ -30,6 +30,9 @@ namespace SampleAlloy.Models.Pages
         [UIHint(UIHint.Image)]
         public virtual ContentReference MainImage { get; set; }
 
+        [UIHint(UIHint.Image)]
+        public virtual ContentReference EmptyImage { get; set; }
+
         [Display(GroupName = Global.GroupNames.SiteSettings, Order = 300)]
         public virtual LinkItemCollection ProductPageLinks { get; set; }
 
