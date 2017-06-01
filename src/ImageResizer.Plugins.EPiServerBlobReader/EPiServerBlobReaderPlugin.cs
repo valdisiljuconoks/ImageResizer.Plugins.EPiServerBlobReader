@@ -1,8 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Web;
-using EPiServer.ServiceLocation;
-using EPiServer.Web.Routing;
 using ImageResizer.Configuration;
 
 namespace ImageResizer.Plugins.EPiServerBlobReader
@@ -13,8 +11,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
     /// </summary>
     public class EPiServerBlobReaderPlugin : IVirtualImageProvider, IPlugin
     {
-        private readonly UrlResolver _urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-        private static readonly Regex PathRegex = new Regex(@",[^\/]*", RegexOptions.Compiled);
+        private static readonly Regex PathRegex = new Regex(@",,\d+", RegexOptions.Compiled);
 
         public IPlugin Install(Config config)
         {
