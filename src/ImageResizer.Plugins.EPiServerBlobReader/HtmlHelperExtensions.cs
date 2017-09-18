@@ -11,7 +11,7 @@ namespace ImageResizer.Plugins.EPiServer
         public static UrlBuilder ResizeImage(this HtmlHelper helper, ContentReference image, int? width = null, int? height = null)
         {
             if(image == null || image == ContentReference.EmptyReference)
-                throw new ArgumentNullException(nameof(image));
+                throw new ArgumentNullException(nameof(image), "You might want to use `ResizeImageWithFallback()` instead");
 
             var url = UrlResolver.Current.GetUrl(image);
 
@@ -26,7 +26,7 @@ namespace ImageResizer.Plugins.EPiServer
         public static UrlBuilder ResizeImage(this HtmlHelper helper, string imageUrl, int? width = null, int? height = null)
         {
             if(string.IsNullOrEmpty(imageUrl))
-                throw new ArgumentNullException(nameof(imageUrl));
+                throw new ArgumentNullException(nameof(imageUrl), "You might want to use `ResizeImageWithFallback()` instead");
 
             return ConstructUrl(imageUrl, width, height);
         }
