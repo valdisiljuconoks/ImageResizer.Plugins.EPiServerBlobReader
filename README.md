@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/10j0nkukch6y5jyf?svg=true)](https://ci.appveyor.com/project/ValdisIljuconoks/imageresizer-plugins-episerverblobreader)
+
 ## ImageResizer.Plugins.EPiServerBlobReader
 
 
