@@ -58,20 +58,20 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
             // Thumbnail URLs should not be modified, e.g. 
             // http://host.com/ui/CMS/Content/contentassets/0c51b2fa1f464956aab221c6ecc21804/file.jpg,,82777/Thumbnail?epieditmode=False?1470652477313
 
-            if (PipelineIsUsingResizer())
+            var pipelineConfig = Config.Current.Pipeline;
+
+            if (PipelineIsUsingResizer(pipelineConfig))
             {
                 var fixedUrl = PathRegex.Replace(context.Request.Url.AbsolutePath, string.Empty);
-                Config.Current.Pipeline.PreRewritePath = fixedUrl;
+                pipelineConfig.PreRewritePath = fixedUrl;
             }
         }
 
-        private bool PipelineIsUsingResizer()
+        private bool PipelineIsUsingResizer(PipelineConfig config)
         {
-            var pipeline = Config.Current.Pipeline;
-
-            foreach (string key in pipeline.ModifiedQueryString.Keys)
+            foreach (string key in config.ModifiedQueryString.Keys)
             {
-                if (pipeline.SupportedQuerystringKeys.Contains(key))
+                if (config.SupportedQuerystringKeys.Contains(key))
                 {
                     return true;
                 }
