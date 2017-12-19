@@ -11,7 +11,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
     /// </summary>
     public class EPiServerBlobReaderPlugin : IVirtualImageProvider, IPlugin
     {
-        private static readonly Regex PathRegex = new Regex(@",,\d+", RegexOptions.Compiled);
+        private static readonly Regex PathRegex = new Regex(@",,[\d_]+", RegexOptions.Compiled);
 
         public IPlugin Install(Config config)
         {
@@ -58,8 +58,26 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
             // Thumbnail URLs should not be modified, e.g. 
             // http://host.com/ui/CMS/Content/contentassets/0c51b2fa1f464956aab221c6ecc21804/file.jpg,,82777/Thumbnail?epieditmode=False?1470652477313
 
-            var fixedUrl = PathRegex.Replace(context.Request.Url.AbsolutePath, string.Empty);
-            Config.Current.Pipeline.PreRewritePath = fixedUrl;
+            if (PipelineIsUsingResizer())
+            {
+                var fixedUrl = PathRegex.Replace(context.Request.Url.AbsolutePath, string.Empty);
+                Config.Current.Pipeline.PreRewritePath = fixedUrl;
+            }
+        }
+
+        private bool PipelineIsUsingResizer()
+        {
+            var pipeline = Config.Current.Pipeline;
+
+            foreach (string key in pipeline.ModifiedQueryString.Keys)
+            {
+                if (pipeline.SupportedQuerystringKeys.Contains(key))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
