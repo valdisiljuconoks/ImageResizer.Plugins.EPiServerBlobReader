@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/10j0nkukch6y5jyf?svg=true)](https://ci.appveyor.com/project/ValdisIljuconoks/imageresizer-plugins-episerverblobreader)
+
 ## ImageResizer.Plugins.EPiServerBlobReader
 
 
@@ -21,13 +23,13 @@ Most convenient way to render image in markup would be use `HtmlHelper` extensio
 This will make sure that markup for visitors would be (assuming that image is `png`):
 
 ```
-<image src="/.../image.png?w=100&h=100">
+<img src="/.../image.png?w=100&h=100">
 ```
 
 And also for the edit mode it would be generated something like this:
 
 ```
-<image src="/.../image.png,,{CONTENT-ID}?epieditmode=False&w=100&h=100">
+<img src="/.../image.png,,{CONTENT-ID}?epieditmode=False&w=100&h=100">
 ```
 
 `ResizeImage` returns back `UrlBuilder` type, so you can fluently chain any additional paramters if needed:
