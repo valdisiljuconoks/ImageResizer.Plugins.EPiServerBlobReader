@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.IO;
+using EPiServer;
 using EPiServer.Core;
 using EPiServer.Framework.Blobs;
 using EPiServer.Security;
@@ -13,15 +14,15 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
     // http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
     public class EPiServerBlobFile : IVirtualFileWithModifiedDate
     {
-        private readonly IContentRouteHelper _contentRouteHelper;
+        private readonly UrlResolver _urlResolver;
         private Blob _blob;
         private IContent _content;
 
-        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString) : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<IContentRouteHelper>()) { }
+        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString) : this(virtualPath, queryString, ServiceLocator.Current.GetInstance<UrlResolver>()) { }
 
-        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString, IContentRouteHelper contentRouteHelper)
+        public EPiServerBlobFile(string virtualPath, NameValueCollection queryString, UrlResolver urlResolver)
         {
-            _contentRouteHelper = contentRouteHelper;
+            _urlResolver = urlResolver;
             VirtualPath = virtualPath;
             QueryString = queryString;
         }
@@ -39,7 +40,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
                     return _content;
                 }
 
-                _content = _contentRouteHelper.Content;
+                _content = _urlResolver.Route(new UrlBuilder(VirtualPath));
                 if (!_content.QueryDistinctAccess(AccessLevel.Read))
                 {
                     _content = null;
