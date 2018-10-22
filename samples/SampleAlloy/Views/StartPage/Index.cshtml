@@ -1,8 +1,7 @@
 @using ImageResizer
 @using ImageResizer.Plugins.EPiServer
+@using SampleAlloy.Business
 @model PageViewModel<SampleAlloy.Models.Pages.StartPage>
-
-@*@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })*@
 
 <div>
     <img src="@Html.ResizeImage(Model.CurrentPage.MainImage, 100).Add("h", "150").Add("gradient", "true")"/>
@@ -20,4 +19,10 @@
     <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, string.Empty, 100).Add("h", "150").Add("gradient", "true")"/>
 
     <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, string.Empty).Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)"/>
+</div>
+
+
+<div>
+    @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage)
+    @Html.ResizePicture(Model.CurrentPage.MainImage.ResizeImage().Quality(10), PictureProfiles.SampleImage)
 </div>
