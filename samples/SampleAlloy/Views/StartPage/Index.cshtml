@@ -25,6 +25,7 @@
 
     @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage)
     @Html.ResizePicture(Model.CurrentPage.MainImage.ResizeImage().Quality(10), PictureProfiles.SampleImage)
+    @Html.ResizePictureWithFallback(Model.CurrentPage.EmptyImage, PictureProfiles.SampleImage, "/noimage.jpg?scale=both")
 </div>
 
 <div>

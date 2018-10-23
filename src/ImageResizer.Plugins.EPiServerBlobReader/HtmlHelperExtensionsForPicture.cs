@@ -61,6 +61,13 @@ namespace ImageResizer.Plugins.EPiServer
             return helper.ResizePictures(images.Select((c, i) => helper.ResizeImage(c, profile.SrcSetWidths[i])).ToArray(), profile, alternateText);
         }
 
+        public static MvcHtmlString ResizePictureWithFallback(this HtmlHelper helper, ContentReference image, PictureProfile profile, string fallbackImage, string alternateText = "")
+        {
+            return image == null || image == ContentReference.EmptyReference
+                       ? ResizePicture(helper, new UrlBuilder(fallbackImage), profile, alternateText)
+                       : ResizePicture(helper, image, profile, alternateText);
+        }
+
         public static MvcHtmlString ResizePicture(this HtmlHelper helper, UrlBuilder url, PictureProfile profile, string alternateText = "")
         {
             var imgUrl = url.Clone();
