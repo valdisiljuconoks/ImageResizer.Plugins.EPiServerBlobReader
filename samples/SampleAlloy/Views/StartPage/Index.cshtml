@@ -3,6 +3,30 @@
 @using SampleAlloy.Business
 @model PageViewModel<SampleAlloy.Models.Pages.StartPage>
 
+
+<div>
+    @Html.ResizePictures(new[]
+                         {
+                             Html.ResizeImage(Model.CurrentPage.XLImage).Quality(10),
+                             Html.ResizeImage(Model.CurrentPage.LGImage).Quality(10),
+                             Html.ResizeImage(Model.CurrentPage.MDImage).Quality(10),
+                             Html.ResizeImage(Model.CurrentPage.SMImage).Quality(10),
+                             Html.ResizeImage(Model.CurrentPage.XSImage).Quality(10)
+                         }, PictureProfiles.BootstrapGrid)
+
+    @Html.ResizePictures(new[]
+                         {
+                             Model.CurrentPage.XLImage,
+                             Model.CurrentPage.LGImage,
+                             Model.CurrentPage.MDImage,
+                             Model.CurrentPage.SMImage,
+                             Model.CurrentPage.XSImage
+                         }, PictureProfiles.BootstrapGrid)
+
+    @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage)
+    @Html.ResizePicture(Model.CurrentPage.MainImage.ResizeImage().Quality(10), PictureProfiles.SampleImage)
+</div>
+
 <div>
     <img src="@Html.ResizeImage(Model.CurrentPage.MainImage, 100).Add("h", "150").Add("gradient", "true")"/>
 
@@ -19,10 +43,4 @@
     <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, string.Empty, 100).Add("h", "150").Add("gradient", "true")"/>
 
     <img src="@Html.ResizeImageWithFallback(Model.CurrentPage.EmptyImage, string.Empty).Width(200).Height(200).Scale(ScaleMode.Both).FitMode(FitMode.Crop)"/>
-</div>
-
-
-<div>
-    @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage)
-    @Html.ResizePicture(Model.CurrentPage.MainImage.ResizeImage().Quality(10), PictureProfiles.SampleImage)
 </div>

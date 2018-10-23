@@ -7,5 +7,7 @@
         public int[] SrcSetWidths { get; set; }
 
         public string[] SrcSetSizes { get; set; }
+
+        public string[] SrcMedias { get; set; }
     }
 }
