@@ -7,7 +7,7 @@
     <ProjectGuid>{D63A4907-40DA-40EB-A17D-1CC62704A02E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ImageResizer.Plugins.EPiServerBlobReader</RootNamespace>
+    <RootNamespace>ImageResizer.Plugins.EPiServer</RootNamespace>
     <AssemblyName>ImageResizer.Plugins.EPiServerBlobReader</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -173,9 +173,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentReferenceExtensions.cs" />
     <Compile Include="EPiServerBlobReaderPlugin.cs" />
     <Compile Include="EPiServerBlobFile.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="HtmlHelperExtensionsForPicture.cs" />
+    <Compile Include="PictureProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlBuilderExtensions.cs" />
   </ItemGroup>

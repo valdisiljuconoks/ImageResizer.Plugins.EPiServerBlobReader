@@ -6,6 +6,11 @@ namespace ImageResizer.Plugins.EPiServer
 {
     public static class UrlBuilderExtensions
     {
+        public static UrlBuilder Clone(this UrlBuilder builder)
+        {
+            return new UrlBuilder(builder.ToString());
+        }
+
         public static UrlBuilder Add(this UrlBuilder target, string key, string value)
         {
             if(target == null)
@@ -57,6 +62,17 @@ namespace ImageResizer.Plugins.EPiServer
 
             if (!target.IsEmpty)
                 target.QueryCollection.Add("scale", AddScaleString(mode));
+
+            return target;
+        }
+
+        public static UrlBuilder Quality(this UrlBuilder target, int quality)
+        {
+            if(target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (!target.IsEmpty)
+                target.QueryCollection.Add("quality", quality.ToString());
 
             return target;
         }

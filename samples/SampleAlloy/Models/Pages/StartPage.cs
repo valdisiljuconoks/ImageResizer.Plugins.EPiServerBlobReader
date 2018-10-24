@@ -33,6 +33,26 @@ namespace SampleAlloy.Models.Pages
         [UIHint(UIHint.Image)]
         public virtual ContentReference EmptyImage { get; set; }
 
+        [UIHint(UIHint.Image)]
+        [Display(Description = "XS (< 576)", Order = 200)]
+        public virtual ContentReference XSImage { get; set; }
+
+        [UIHint(UIHint.Image)]
+        [Display(Description = "Small (>= 576)", Order = 201)]
+        public virtual ContentReference SMImage { get; set; }
+
+        [UIHint(UIHint.Image)]
+        [Display(Description = "Medium (>= 768)", Order = 202)]
+        public virtual ContentReference MDImage { get; set; }
+
+        [UIHint(UIHint.Image)]
+        [Display(Description = "Medium (>= 992)", Order = 203)]
+        public virtual ContentReference LGImage { get; set; }
+
+        [UIHint(UIHint.Image)]
+        [Display(Description = "Extra Large(>= 1200)", Order = 204)]
+        public virtual ContentReference XLImage { get; set; }
+
         [Display(GroupName = Global.GroupNames.SiteSettings, Order = 300)]
         public virtual LinkItemCollection ProductPageLinks { get; set; }
 
