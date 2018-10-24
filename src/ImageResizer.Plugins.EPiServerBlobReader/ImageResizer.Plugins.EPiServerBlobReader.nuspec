@@ -10,7 +10,7 @@
     <licenseUrl>https://github.com/valdisiljuconoks/ImageResizer.Plugins.EPiServerBlobReader/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Version with EPiServer v11 support</releaseNotes>
+    <releaseNotes>Support for responsive picture element.</releaseNotes>
     <copyright>Copyright 2017 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>EPiServer CMS ImageResizer Image Resizer BlobReader Blob ImageResizing Resizing ImageResizer.Net Imazen Imazen.Net</tags>
     <dependencies>
