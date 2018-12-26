@@ -12,7 +12,7 @@
                              Html.ResizeImage(Model.CurrentPage.MDImage).Quality(10),
                              Html.ResizeImage(Model.CurrentPage.SMImage).Quality(10),
                              Html.ResizeImage(Model.CurrentPage.XSImage).Quality(10)
-                         }, PictureProfiles.BootstrapGrid)
+                         }, PictureProfiles.BootstrapGrid, cssClass: "sample-css-class")
 
     @Html.ResizePictures(new[]
                          {
@@ -21,11 +21,11 @@
                              Model.CurrentPage.MDImage,
                              Model.CurrentPage.SMImage,
                              Model.CurrentPage.XSImage
-                         }, PictureProfiles.BootstrapGrid)
+                         }, PictureProfiles.BootstrapGrid, cssClass: "sample-css-class")
 
-    @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage)
-    @Html.ResizePicture(Model.CurrentPage.MainImage.ResizeImage().Quality(10), PictureProfiles.SampleImage)
-    @Html.ResizePictureWithFallback(Model.CurrentPage.EmptyImage, PictureProfiles.SampleImage, "/noimage.jpg?scale=both")
+    @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage, cssClass: "sample-css-class")
+    @Html.ResizePicture(Model.CurrentPage.MainImage.ResizeImage().Quality(10), PictureProfiles.SampleImage, cssClass: "sample-css-class")
+    @Html.ResizePictureWithFallback(Model.CurrentPage.EmptyImage, PictureProfiles.SampleImage, "/noimage.jpg?scale=both", cssClass: "sample-css-class")
 </div>
 
 <div>

@@ -9,7 +9,7 @@ namespace ImageResizer.Plugins.EPiServer
 {
     public static class HtmlHelperExtensionsForPicture
     {
-        public static MvcHtmlString ResizePictures(this HtmlHelper helper, UrlBuilder[] urls, PictureProfile profile, string alternateText = "")
+        public static MvcHtmlString ResizePictures(this HtmlHelper helper, UrlBuilder[] urls, PictureProfile profile, string alternateText = "", string cssClass = "")
         {
             if(urls == null)
                 throw new ArgumentNullException(nameof(urls));
@@ -47,28 +47,30 @@ namespace ImageResizer.Plugins.EPiServer
             defaultUrl.QueryCollection["w"] = profile.DefaultWidth.ToString();
             img.Attributes.Add("src", defaultUrl.ToString());
             img.Attributes.Add("alt", alternateText);
+            if (!string.IsNullOrEmpty(cssClass))
+                img.Attributes.Add("class", cssClass);
 
             picture.InnerHtml = sources.ToString() + img;
 
             return new MvcHtmlString(picture.ToString());
         }
 
-        public static MvcHtmlString ResizePictures(this HtmlHelper helper, ContentReference[] images, PictureProfile profile, string alternateText = "")
+        public static MvcHtmlString ResizePictures(this HtmlHelper helper, ContentReference[] images, PictureProfile profile, string alternateText = "", string cssClass = "")
         {
             if(images == null)
                 throw new ArgumentNullException(nameof(images));
 
-            return helper.ResizePictures(images.Select((c, i) => helper.ResizeImage(c, profile.SrcSetWidths[i])).ToArray(), profile, alternateText);
+            return helper.ResizePictures(images.Select((c, i) => helper.ResizeImage(c, profile.SrcSetWidths[i])).ToArray(), profile, alternateText, cssClass);
         }
 
-        public static MvcHtmlString ResizePictureWithFallback(this HtmlHelper helper, ContentReference image, PictureProfile profile, string fallbackImage, string alternateText = "")
+        public static MvcHtmlString ResizePictureWithFallback(this HtmlHelper helper, ContentReference image, PictureProfile profile, string fallbackImage, string alternateText = "", string cssClass = "")
         {
             return image == null || image == ContentReference.EmptyReference
-                       ? ResizePicture(helper, new UrlBuilder(fallbackImage), profile, alternateText)
-                       : ResizePicture(helper, image, profile, alternateText);
+                       ? ResizePicture(helper, new UrlBuilder(fallbackImage), profile, alternateText, cssClass)
+                       : ResizePicture(helper, image, profile, alternateText, cssClass);
         }
 
-        public static MvcHtmlString ResizePicture(this HtmlHelper helper, UrlBuilder url, PictureProfile profile, string alternateText = "")
+        public static MvcHtmlString ResizePicture(this HtmlHelper helper, UrlBuilder url, PictureProfile profile, string alternateText = "", string cssClass = "")
         {
             var imgUrl = url.Clone();
             imgUrl.QueryCollection["w"] = profile.DefaultWidth.ToString();
@@ -80,18 +82,18 @@ namespace ImageResizer.Plugins.EPiServer
                                                              return $"{sourceUrl} {w}w";
                                                          }).ToArray();
 
-            return GeneratePictureElement(profile, imgUrl.ToString(), sourceSets, alternateText);
+            return GeneratePictureElement(profile, imgUrl.ToString(), sourceSets, alternateText, cssClass);
         }
 
-        public static MvcHtmlString ResizePicture(this HtmlHelper helper, ContentReference image, PictureProfile profile, string alternateText = "")
+        public static MvcHtmlString ResizePicture(this HtmlHelper helper, ContentReference image, PictureProfile profile, string alternateText = "", string cssClass = "")
         {
             var imgUrl = helper.ResizeImage(image, profile.DefaultWidth);
             var sourceSets = profile.SrcSetWidths.Select(w => $"{helper.ResizeImage(image, w).ToString()} {w}w").ToArray();
 
-            return GeneratePictureElement(profile, imgUrl.ToString(), sourceSets, alternateText);
+            return GeneratePictureElement(profile, imgUrl.ToString(), sourceSets, alternateText, cssClass);
         }
 
-        private static MvcHtmlString GeneratePictureElement(PictureProfile profile, string imgUrl, string[] sourceSets, string alternateText = "")
+        private static MvcHtmlString GeneratePictureElement(PictureProfile profile, string imgUrl, string[] sourceSets, string alternateText = "", string cssClass = "")
         {
             var picture = new TagBuilder("picture");
             var source = new TagBuilder("source");
@@ -104,6 +106,8 @@ namespace ImageResizer.Plugins.EPiServer
             var img = new TagBuilder("img");
             img.Attributes.Add("src", imgUrl);
             img.Attributes.Add("alt", alternateText);
+            if(!string.IsNullOrEmpty(cssClass))
+                img.Attributes.Add("class", cssClass);
 
             picture.InnerHtml = source.ToString() + img;
 
