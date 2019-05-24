@@ -80,8 +80,13 @@ Here we can specify couple of properties to customize <picture> element:
 * Source set widths (`SrcSetWidths`) - this regulates various image sizes (resized by width specified here). Used to generate srcset attribute.
 * Default width (`DefaultWidth`) - what is default width of the image. This is for old-school browsers those have no clue about `<picture>` element existence.
 
+2) Call actual rendering method
 
-Code above generates following markup:
+```csharp
+@Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage)
+```
+
+3) Code above generates following markup:
 
 ```
 <picture>
