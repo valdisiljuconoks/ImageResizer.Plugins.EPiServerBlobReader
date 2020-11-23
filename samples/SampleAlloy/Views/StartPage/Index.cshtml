@@ -5,6 +5,11 @@
 
 
 <div>
+    @Html.Raw(Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage, cssClass: "sample-css-class").ToHtmlString())
+    @Html.ResizePicture(Model.CurrentPage.MainImage, PictureProfiles.SampleImage, cssClass: "sample-css-class")
+</div>
+
+<div>
     @Html.ResizePictures(new[]
                          {
                              Html.ResizeImage(Model.CurrentPage.XLImage).Quality(10),

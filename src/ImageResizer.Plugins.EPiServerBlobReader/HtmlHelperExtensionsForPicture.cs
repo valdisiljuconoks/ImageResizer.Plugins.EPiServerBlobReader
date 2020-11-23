@@ -39,7 +39,7 @@ namespace ImageResizer.Plugins.EPiServer
                 source.Attributes.Add("srcset", url.ToString());
                 source.Attributes.Add("media", media);
 
-                sources.Append(source);
+                sources.Append(source.ToString(TagRenderMode.SelfClosing));
             }
 
             var img = new TagBuilder("img");
@@ -50,7 +50,7 @@ namespace ImageResizer.Plugins.EPiServer
             if (!string.IsNullOrEmpty(cssClass))
                 img.Attributes.Add("class", cssClass);
 
-            picture.InnerHtml = sources.ToString() + img;
+            picture.InnerHtml = sources + img.ToString(TagRenderMode.SelfClosing);
 
             return new MvcHtmlString(picture.ToString());
         }
@@ -88,7 +88,7 @@ namespace ImageResizer.Plugins.EPiServer
         public static MvcHtmlString ResizePicture(this HtmlHelper helper, ContentReference image, PictureProfile profile, string alternateText = "", string cssClass = "")
         {
             var imgUrl = helper.ResizeImage(image, profile.DefaultWidth);
-            var sourceSets = profile.SrcSetWidths.Select(w => $"{helper.ResizeImage(image, w).ToString()} {w}w").ToArray();
+            var sourceSets = profile.SrcSetWidths.Select(w => $"{helper.ResizeImage(image, w)} {w}w").ToArray();
 
             return GeneratePictureElement(profile, imgUrl.ToString(), sourceSets, alternateText, cssClass);
         }
@@ -109,7 +109,7 @@ namespace ImageResizer.Plugins.EPiServer
             if(!string.IsNullOrEmpty(cssClass))
                 img.Attributes.Add("class", cssClass);
 
-            picture.InnerHtml = source.ToString() + img;
+            picture.InnerHtml = source.ToString(TagRenderMode.SelfClosing) + img.ToString(TagRenderMode.SelfClosing);
 
             return new MvcHtmlString(picture.ToString());
         }
