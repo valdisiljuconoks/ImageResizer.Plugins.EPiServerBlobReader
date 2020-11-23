@@ -11,8 +11,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Support for responsive picture element.</releaseNotes>
-    <copyright>Copyright 2017 (c) Valdis Iljuconoks, Tech Fellow</copyright>
-    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader Blob ImageResizing Resizing ImageResizer.Net Imazen Imazen.Net</tags>
+    <copyright>Copyright 2020 (c) Valdis Iljuconoks, Tech Fellow</copyright>
+    <tags>EPiServer CMS ImageResizer Image Resizer BlobReader Blob ImageResizing Resizing Image Resizer ImageResizer.Net Imazen Imazen.Net</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="[11.1, 12)" />
       <dependency id="ImageResizer" version="4.0.1" />
