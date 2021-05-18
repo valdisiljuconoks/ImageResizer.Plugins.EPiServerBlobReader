@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.IO;
+using System.Threading.Tasks;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Framework.Blobs;
@@ -12,7 +13,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
 {
     // Original code (or at least as much as left from it):
     // http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
-    public class EPiServerBlobFile : IVirtualFileWithModifiedDate
+    public class EPiServerBlobFile : IVirtualFileWithModifiedDate, IVirtualFileAsync
     {
         private readonly UrlResolver _urlResolver;
         private Blob _blob;
@@ -53,6 +54,10 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
         public bool BlobExists => Content != null;
 
         public string VirtualPath { get; }
+        public Task<Stream> OpenAsync()
+        {
+            return Task.FromResult(Blob?.OpenRead());
+        }
 
         public DateTime ModifiedDateUTC
         {
