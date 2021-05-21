@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using ImageResizer.Configuration;
 
@@ -9,7 +10,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
     ///     Copyright:
     ///     https://raw.githubusercontent.com/Igelkottegrodan/ImageResizer.Plugins.EPiServerBlobPlugin/master/ImageResizer.Plugins.EPiServerBlobPlugin/EPiServerBlobPlugin.cs
     /// </summary>
-    public class EPiServerBlobReaderPlugin : IVirtualImageProvider, IPlugin
+    public class EPiServerBlobReaderPlugin : IVirtualImageProvider, IVirtualImageProviderAsync, IPlugin
     {
         private static readonly Regex PathRegex = new Regex(@",,[\d_]+", RegexOptions.Compiled);
 
@@ -78,6 +79,19 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
             }
 
             return false;
+        }
+
+        public Task<bool> FileExistsAsync(string virtualPath, NameValueCollection queryString)
+        {
+            var blobImage = GetBlobFile(virtualPath, queryString);
+            var exists = blobImage != null && blobImage.BlobExists;
+            return Task.FromResult(exists);
+        }
+
+        public Task<IVirtualFileAsync> GetFileAsync(string virtualPath, NameValueCollection queryString)
+        {
+            IVirtualFileAsync blobImage = GetBlobFile(virtualPath, queryString);
+            return Task.FromResult(blobImage);
         }
     }
 }
