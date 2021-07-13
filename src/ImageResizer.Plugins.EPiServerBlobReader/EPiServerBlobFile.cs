@@ -13,7 +13,7 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
 {
     // Original code (or at least as much as left from it):
     // http://world.episerver.com/Code/Martin-Pickering/ImageResizingNet-integration-for-CMS75/
-    public class EPiServerBlobFile : IVirtualFileWithModifiedDate, IVirtualFileAsync
+    public class EPiServerBlobFile : IVirtualFileWithModifiedDate, IVirtualFileWithModifiedDateAsync, IVirtualFileAsync
     {
         private readonly UrlResolver _urlResolver;
         private Blob _blob;
@@ -66,6 +66,11 @@ namespace ImageResizer.Plugins.EPiServerBlobReader
                 var trackable = Content as IChangeTrackable;
                 return trackable?.Saved.ToUniversalTime() ?? DateTime.MinValue.ToUniversalTime();
             }
+        }
+
+        public Task<DateTime> GetModifiedDateUTCAsync()
+        {
+            return Task.FromResult(ModifiedDateUTC);
         }
 
         public Stream Open()
